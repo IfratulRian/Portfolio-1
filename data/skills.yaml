@@ -1,0 +1,22 @@
+skill_groups:
+  - title: "Languages"
+    skills:
+      - "C++"
+      - "Java"
+      - "JavaScript"
+      - "Python"
+      - "SQL"
+
+  - title: "Core Computer Science"
+    skills:
+      - "Data Structures"
+      - "Algorithms"
+      - "OOP"
+      - "Problem Solving"
+
+  - title: "Development & Tools"
+    skills:
+      - "React"
+      - "Web Development"
+      - "Git & GitHub"
+      - "REST APIs"

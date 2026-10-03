@@ -1,0 +1,29 @@
+coding_profiles:
+  - name: Codeforces
+    solved: "600+"
+    rating: 973
+    url: "https://codeforces.com/profile/Ifratul_Rian"
+
+  - name: LeetCode
+    solved: "250+"
+    rating: 1454
+    url: "https://leetcode.com/u/Ifratul_Rian/"
+
+  - name: CodeChef
+    solved: "230+"
+    rating: 1320
+    country_rank: 1601
+    url: "https://www.codechef.com/users/ifratul_rian"
+
+  - name: CodeChef DSA Contest
+    rating: 1246
+    country_rank: 107
+
+  - name: beecrowd
+    solved: "175+"
+
+  - name: AtCoder
+    solved: "50+"
+
+  - name: VJudge
+    solved: "290+"
