@@ -1,0 +1,10 @@
+{
+  "description": "Showcase your competitive programming achievements, skills, and contributions with a personalized portfolio that highlights problem-solving capabilities and community involvement.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}

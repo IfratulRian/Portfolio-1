@@ -15,6 +15,11 @@ import {
   IconMail,
   IconVJudge,
 } from "./components/Icons";
+import MagneticElement from "./components/animations/MagneticElement";
+import SpotlightTiltCard from "./components/animations/SpotlightTiltCard";
+import AnimatedCounter from "./components/animations/AnimatedCounter";
+import HeroInteractiveBackground from "./components/animations/HeroInteractiveBackground";
+import { useScrollReveal } from "./hooks/useScrollReveal";
 
 const navItems = [
   ["Home", "top"],
@@ -86,6 +91,57 @@ function App() {
     return "light";
   });
 
+  const [activeSection, setActiveSection] = useState("top");
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const [showBackToTop, setShowBackToTop] = useState(false);
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState("All");
+
+  const showToast = (msg: string) => {
+    setToastMessage(msg);
+    setTimeout(() => {
+      setToastMessage((curr) => (curr === msg ? null : curr));
+    }, 2800);
+  };
+
+  const handleCopyEmail = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(profile.email);
+      showToast(`Copied ${profile.email} to clipboard!`);
+    } else {
+      window.location.href = `mailto:${profile.email}`;
+    }
+  };
+
+  // Scrollspy & Reading Progress Tracker
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? (scrollY / docHeight) * 100 : 0;
+      setScrollProgress(progress);
+      setShowBackToTop(scrollY > 400);
+
+      // Section Scrollspy
+      const sectionIds = ["top", "about", "skills", "projects", "competitive", "achievements", "leadership", "education", "contact"];
+      for (let i = sectionIds.length - 1; i >= 0; i--) {
+        const id = sectionIds[i];
+        const el = document.getElementById(id);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= 140) {
+            setActiveSection(id);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   useEffect(() => {
     localStorage.setItem("portfolio-theme", theme);
   }, [theme]);
@@ -101,8 +157,37 @@ function App() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
+  // GSAP-driven Scroll Reveal hooks (Preset #5 & #8 from ui-ux-pro-max-skill)
+  const skillsRef = useScrollReveal<HTMLDivElement>({ itemSelector: ".skill-group", stagger: 0.08, yOffset: 18 });
+  const projectsRef = useScrollReveal<HTMLDivElement>({ itemSelector: ".project-card", stagger: 0.09, yOffset: 24 });
+  const competitiveRef = useScrollReveal<HTMLDivElement>({ itemSelector: ".profile-card", stagger: 0.07, yOffset: 24 });
+  const timelineRef = useScrollReveal<HTMLDivElement>({ itemSelector: ".timeline-item", stagger: 0.07, yOffset: 20 });
+  const leadershipRef = useScrollReveal<HTMLDivElement>({ itemSelector: ".leadership-card", stagger: 0.09, yOffset: 24 });
+
+  const projectCategories = ["All", "Java / OOP", "Algorithms & C++", "Data Structures"];
+
+  const filteredProjects = projects.filter((project) => {
+    if (selectedCategory === "All") return true;
+    if (selectedCategory === "Java / OOP") return project.tags.includes("Java") || project.tags.includes("OOP");
+    if (selectedCategory === "Algorithms & C++") return project.tags.includes("C++") || project.tags.includes("Graph") || project.tags.includes("Dijkstra");
+    if (selectedCategory === "Data Structures") return project.tags.includes("BST") || project.tags.includes("Stack") || project.tags.includes("Hash Table");
+    return true;
+  });
+
   return (
     <div className="site-shell" data-theme={theme}>
+      {/* Accessible Skip Link (Rule #1 Accessibility) */}
+      <a href="#top" className="skip-to-content">
+        Skip to main content
+      </a>
+
+      {/* Reading / Scroll Progress Bar */}
+      <div
+        className="scroll-progress-bar"
+        style={{ width: `${scrollProgress}%` }}
+        aria-hidden="true"
+      />
+
       {/* Lightbox Modal */}
       {activeModalImage && (
         <div
@@ -139,7 +224,15 @@ function App() {
         </a>
         <div className={`nav-links ${menuOpen ? "open" : ""}`}>
           {navItems.map(([label, id]) => (
-            <a key={id} href={`#${id}`} onClick={() => setMenuOpen(false)}>
+            <a
+              key={id}
+              href={`#${id}`}
+              className={activeSection === id ? "active" : ""}
+              onClick={() => {
+                setMenuOpen(false);
+                setActiveSection(id);
+              }}
+            >
               {label}
             </a>
           ))}
@@ -155,9 +248,11 @@ function App() {
             <span aria-hidden="true">{theme === "light" ? "☾" : "☀"}</span>
             <span>{theme === "light" ? "Night" : "Day"}</span>
           </button>
-          <a className="nav-cta" href={`mailto:${profile.email}`}>
-            Let’s talk <Arrow diagonal />
-          </a>
+          <MagneticElement strength={0.25}>
+            <a className="nav-cta" href={`mailto:${profile.email}`}>
+              Let’s talk <Arrow diagonal />
+            </a>
+          </MagneticElement>
         </div>
         <button
           className="menu-button"
@@ -174,20 +269,21 @@ function App() {
       <main id="top">
         {/* Hero Section */}
         <section className="hero">
-          <div className="hero-orbit orbit-one" />
-          <div className="hero-orbit orbit-two" />
+          <HeroInteractiveBackground />
           <div className="hero-content">
             <div className="availability">
               <span />
               CS student at Daffodil International University
             </div>
-            <div className="portrait-frame" aria-label="Formal portrait of Md. Ifratul Islam Rian">
-              <img
-                src={profile.avatar}
-                alt="Md. Ifratul Islam Rian"
-                className="portrait-img"
-              />
-            </div>
+            <MagneticElement strength={0.16}>
+              <div className="portrait-frame" aria-label="Formal portrait of Md. Ifratul Islam Rian">
+                <img
+                  src={profile.avatar}
+                  alt="Md. Ifratul Islam Rian"
+                  className="portrait-img"
+                />
+              </div>
+            </MagneticElement>
             <p className="hero-name">{profile.name}</p>
             <p className="hero-kicker">{profile.role}</p>
             <div className="typewriter">
@@ -198,30 +294,40 @@ function App() {
             </div>
             <p className="hero-copy">{profile.summary}</p>
             <div className="hero-actions">
-              <a className="button button-primary" href="#projects">
-                Explore my work <Arrow />
-              </a>
+              <MagneticElement strength={0.35}>
+                <a className="button button-primary" href="#projects">
+                  Explore my work <Arrow />
+                </a>
+              </MagneticElement>
               <a className="text-link" href="#competitive">
                 Competitive journey <Arrow diagonal />
               </a>
             </div>
           </div>
-          {/* Subtle Hero Statistics Row */}
+          {/* Subtle Hero Statistics Row with smooth numerical count-up */}
           <div className="hero-stats" aria-label="Key Statistics">
             <div>
-              <strong>600+</strong>
+              <strong>
+                <AnimatedCounter value={600} suffix="+" />
+              </strong>
               <span>Codeforces Problems</span>
             </div>
             <div>
-              <strong>250+</strong>
+              <strong>
+                <AnimatedCounter value={250} suffix="+" />
+              </strong>
               <span>LeetCode Problems</span>
             </div>
             <div>
-              <strong>230+</strong>
+              <strong>
+                <AnimatedCounter value={230} suffix="+" />
+              </strong>
               <span>CodeChef Problems</span>
             </div>
             <div>
-              <strong>2×</strong>
+              <strong>
+                <AnimatedCounter value={2} suffix="×" />
+              </strong>
               <span>Problem Setter Semesters</span>
             </div>
           </div>
@@ -265,7 +371,7 @@ function App() {
         {/* 02: Skills */}
         <section className="section skills" id="skills">
           <SectionHeading eyebrow="02 / Skills" title="Tools for thinking and making." />
-          <div className="skill-grid">
+          <div className="skill-grid" ref={skillsRef}>
             {skillGroups.map((group) => (
               <article className="skill-group" key={group.title}>
                 <h3>{group.title}</h3>
@@ -286,9 +392,29 @@ function App() {
             title="Selected work & implementations."
             intro="A showcase of how I apply computer science fundamentals across algorithms, software architecture, and modular systems."
           />
-          <div className="project-list">
-            {projects.map((project) => (
-              <article className="project-card" key={project.title}>
+          {/* Interactive Domain Filter Tabs */}
+          <div className="project-filter-bar" role="tablist" aria-label="Filter projects by domain">
+            {projectCategories.map((cat) => (
+              <button
+                key={cat}
+                type="button"
+                role="tab"
+                aria-selected={selectedCategory === cat}
+                className={`filter-tab-btn ${selectedCategory === cat ? "active" : ""}`}
+                onClick={() => setSelectedCategory(cat)}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+          <div className="project-list" ref={projectsRef}>
+            {filteredProjects.map((project) => (
+              <SpotlightTiltCard
+                className="project-card"
+                key={project.title}
+                maxTilt={3.5}
+                scale={1.015}
+              >
                 <div className="project-topline">
                   <span className="project-number">{project.number}</span>
                   <span className="project-subtitle">{project.subtitle}</span>
@@ -310,7 +436,7 @@ function App() {
                     View Repository on GitHub <Arrow diagonal />
                   </a>
                 )}
-              </article>
+              </SpotlightTiltCard>
             ))}
           </div>
         </section>
@@ -322,9 +448,14 @@ function App() {
             title="Practice, persistence, progress."
             intro="Algorithms are a daily discipline. These numbers reflect verified solved problem counts and current platform statistics—not percentages."
           />
-          <div className="profile-grid">
+          <div className="profile-grid" ref={competitiveRef}>
             {codingProfiles.map((item, index) => (
-              <article className={`profile-card ${index < 3 ? "featured" : ""}`} key={item.name}>
+              <SpotlightTiltCard
+                className={`profile-card ${index < 3 ? "featured" : ""}`}
+                key={item.name}
+                maxTilt={4}
+                scale={1.02}
+              >
                 <div className="profile-top">
                   <div className="platform-mark" aria-hidden="true">
                     <PlatformIcon name={item.name} />
@@ -359,7 +490,7 @@ function App() {
                 ) : (
                   <span className="card-note">Verified platform record</span>
                 )}
-              </article>
+              </SpotlightTiltCard>
             ))}
           </div>
         </section>
@@ -371,7 +502,7 @@ function App() {
             title="Milestones along the way."
             intro="Contest results, hackathons, and contributions—presented factually as earned with photo verification."
           />
-          <div className="timeline">
+          <div className="timeline" ref={timelineRef}>
             {achievements.map((item, index) => (
               <article className="timeline-item" key={`${item.event}-${item.result}-${index}`}>
                 <div className="timeline-marker">
@@ -382,8 +513,10 @@ function App() {
                   <h3>{item.event}</h3>
                   <p>{item.result}</p>
                   {item.image && (
-                    <div
+                    <SpotlightTiltCard
                       className="milestone-photo-card"
+                      maxTilt={2.5}
+                      scale={1.01}
                       onClick={() =>
                         setActiveModalImage({
                           url: item.image!,
@@ -394,7 +527,7 @@ function App() {
                       title="Click for full-screen zoom"
                       role="button"
                       tabIndex={0}
-                      onKeyDown={(e) => {
+                      onKeyDown={(e: React.KeyboardEvent<HTMLDivElement>) => {
                         if (e.key === "Enter" || e.key === " ") {
                           setActiveModalImage({
                             url: item.image!,
@@ -414,7 +547,7 @@ function App() {
                         <span>{item.imageAlt || "Stage Award & Verification"}</span>
                         <span className="caption-zoom">🔍 Full view</span>
                       </div>
-                    </div>
+                    </SpotlightTiltCard>
                   )}
                 </div>
               </article>
@@ -429,9 +562,14 @@ function App() {
             title="Beyond participation."
             intro="Contributing to the competitive programming community at DIU by creating challenging problems and helping organize contests."
           />
-          <div className="leadership-grid">
+          <div className="leadership-grid" ref={leadershipRef}>
             {leadershipRoles.map((role) => (
-              <article className="leadership-card" key={role.role + role.organization}>
+              <SpotlightTiltCard
+                className="leadership-card"
+                key={role.role + role.organization}
+                maxTilt={3}
+                scale={1.015}
+              >
                 <span className="role-label">{role.role}</span>
                 <h3>{role.organization}</h3>
                 <p>{role.description}</p>
@@ -492,7 +630,7 @@ function App() {
                     <span key={tag}>{tag}</span>
                   ))}
                 </div>
-              </article>
+              </SpotlightTiltCard>
             ))}
           </div>
         </section>
@@ -567,62 +705,81 @@ function App() {
           <p>
             I’m always open to discussing algorithmic problems, engineering challenges, open source collaborations, or new opportunities.
           </p>
-          <a className="contact-email" href={`mailto:${profile.email}`}>
-            <IconMail /> {profile.email} <Arrow diagonal />
-          </a>
-          <div className="social-row" aria-label="Social and coding profiles">
+          <MagneticElement strength={0.25}>
             <a
-              href={profile.socials.linkedin}
-              target="_blank"
-              rel="noreferrer"
-              aria-label="LinkedIn"
-              title="LinkedIn"
-            >
-              <IconLinkedIn />
-            </a>
-            <a
-              href={profile.socials.github}
-              target="_blank"
-              rel="noreferrer"
-              aria-label="GitHub"
-              title="GitHub"
-            >
-              <IconGitHub />
-            </a>
-            <a
-              href={profile.socials.codeforces}
-              target="_blank"
-              rel="noreferrer"
-              aria-label="Codeforces"
-              title="Codeforces"
-            >
-              <IconCodeforces />
-            </a>
-            <a
-              href={profile.socials.leetcode}
-              target="_blank"
-              rel="noreferrer"
-              aria-label="LeetCode"
-              title="LeetCode"
-            >
-              <IconLeetCode />
-            </a>
-            <a
-              href={profile.socials.codechef}
-              target="_blank"
-              rel="noreferrer"
-              aria-label="CodeChef"
-              title="CodeChef"
-            >
-              <IconCodeChef />
-            </a>
-            <a
+              className="contact-email"
               href={`mailto:${profile.email}`}
-              aria-label="Email"
-              title="Email"
+              onClick={handleCopyEmail}
+              title="Click to copy email address"
             >
-              <IconMail />
+              <IconMail /> {profile.email} <Arrow diagonal />
             </a>
+          </MagneticElement>
+          <div className="social-row" aria-label="Social and coding profiles">
+            <MagneticElement strength={0.4}>
+              <a
+                href={profile.socials.linkedin}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="LinkedIn"
+                title="LinkedIn"
+              >
+                <IconLinkedIn />
+              </a>
+            </MagneticElement>
+            <MagneticElement strength={0.4}>
+              <a
+                href={profile.socials.github}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="GitHub"
+                title="GitHub"
+              >
+                <IconGitHub />
+              </a>
+            </MagneticElement>
+            <MagneticElement strength={0.4}>
+              <a
+                href={profile.socials.codeforces}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Codeforces"
+                title="Codeforces"
+              >
+                <IconCodeforces />
+              </a>
+            </MagneticElement>
+            <MagneticElement strength={0.4}>
+              <a
+                href={profile.socials.leetcode}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="LeetCode"
+                title="LeetCode"
+              >
+                <IconLeetCode />
+              </a>
+            </MagneticElement>
+            <MagneticElement strength={0.4}>
+              <a
+                href={profile.socials.codechef}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="CodeChef"
+                title="CodeChef"
+              >
+                <IconCodeChef />
+              </a>
+            </MagneticElement>
+            <MagneticElement strength={0.4}>
+              <a
+                href={`mailto:${profile.email}`}
+                aria-label="Email"
+                title="Email"
+              >
+                <IconMail />
+              </a>
+            </MagneticElement>
           </div>
         </section>
       </main>
@@ -635,6 +792,31 @@ function App() {
         <p>© {new Date().getFullYear()} Md. Ifratul Islam Rian. All rights reserved.</p>
         <a href="#top">Back to top ↑</a>
       </footer>
+
+      {/* Toast Notification (Rule #2 Touch & Interaction Feedback) */}
+      {toastMessage && (
+        <div className="toast-notice" role="status" aria-live="polite">
+          <span aria-hidden="true">✓</span>
+          <span>{toastMessage}</span>
+        </div>
+      )}
+
+      {/* Floating Back to Top Button (Rule #9 Navigation Patterns) */}
+      {showBackToTop && (
+        <div className="fixed bottom-7 right-7 z-40">
+          <MagneticElement strength={0.35}>
+            <button
+              type="button"
+              className="back-to-top-btn"
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              aria-label="Back to top"
+              title="Back to top"
+            >
+              ↑
+            </button>
+          </MagneticElement>
+        </div>
+      )}
     </div>
   );
 }
