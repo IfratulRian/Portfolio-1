@@ -21,35 +21,35 @@ export const achievements: Achievement[] = [
     event: "DIU Take-Off Programming Contest (Fall 2025)",
     result: "Preliminary Round: 2nd Runner-up",
     category: "Contest",
-    image: "/images/takeoff-fall-2025-2nd-runner-up.jpg",
+    image: "/Portfolio-1/images/takeoff-fall-2025-2nd-runner-up.jpg",
     imageAlt: "DIU Take-Off Programming Contest Fall 2025 Preliminary 2nd Runner-up Stage Award",
   },
   {
     event: "DIU Unlock the Algorithm Contest",
     result: "11th place",
     category: "Contest",
-    image: "/images/uta-11th-place.jpg",
+    image: "/Portfolio-1/images/uta-11th-place.jpg",
     imageAlt: "DIU Unlock the Algorithm Contest 11th Place Stage Award",
   },
   {
     event: "Take-Off Mock Round",
     result: "Problem Setter · Summer 2026",
     category: "Contribution",
-    image: "/images/takeoff-mock-summer-2026.jpg",
+    image: "/Portfolio-1/images/takeoff-mock-summer-2026.jpg",
     imageAlt: "Take-Off Mock Round Summer 2026 Problem Setter Crest & Recognition",
   },
   {
     event: "Take-Off Mock Round",
     result: "Problem Setter · Spring 2026",
     category: "Contribution",
-    image: "/images/takeoff-mock-spring-2026.jpg",
+    image: "/Portfolio-1/images/takeoff-mock-spring-2026.jpg",
     imageAlt: "Take-Off Mock Round Spring 2026 Problem Setter Crest & Recognition",
   },
   {
     event: "DIU ACM Club",
     result: "Contest Organizer",
     category: "Contribution",
-    image: "/images/diu-acm-all-members.jpg",
+    image: "/Portfolio-1/images/diu-acm-all-members.jpg",
     imageAlt: "DIU ACM Club Contest Organizing Team & Members",
   },
 
@@ -78,10 +78,10 @@ export const leadershipRoles: LeadershipRole[] = [
     description:
       "Designed implementation-based programming problems for the Take-Off Mock Round across Spring 2026 and Summer 2026.",
     tags: ["Spring 2026", "Summer 2026", "Problem Setting"],
-    image: "/images/takeoff-mock-summer-2026.jpg",
+    image: "/Portfolio-1/images/takeoff-mock-summer-2026.jpg",
     images: [
-      "/images/takeoff-mock-spring-2026.jpg",
-      "/images/takeoff-mock-summer-2026.jpg",
+      "/Portfolio-1/images/takeoff-mock-spring-2026.jpg",
+      "/Portfolio-1/images/takeoff-mock-summer-2026.jpg",
     ],
   },
   {
@@ -90,6 +90,6 @@ export const leadershipRoles: LeadershipRole[] = [
     description:
       "Contributed to organizing the DIU Take-Off Programming Contest and Unlock the Algorithm Contest.",
     tags: ["Take-Off Contest", "Unlock the Algorithm", "DIU ACM Club"],
-    image: "/images/diu-acm-all-members.jpg",
+    image: "/Portfolio-1/images/diu-acm-all-members.jpg",
   },
 ];
