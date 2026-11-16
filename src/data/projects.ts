@@ -68,4 +68,19 @@ export const projects = [
     ],
     tags: ["Java", "OOP", "Git", "GitHub"],
   },
+  {
+    number: "06",
+    title: "NEXUS – A Smart Hospital Management System",
+    subtitle: "Java · Object-Oriented Programming",
+    description:
+      "Developed a modular Java-based hospital management system to streamline healthcare operations, including patient and doctor management, appointment scheduling, medical records, pharmacy, billing, and insurance management. Implemented OOP principles, layered architecture, file-based data persistence, and design patterns.",
+    highlights: [
+      "Patient and doctor management with appointment scheduling",
+      "Medical records, pharmacy, billing, and insurance management",
+      "Layered architecture with file-based data persistence",
+      "Object-oriented design patterns",
+    ],
+    tags: ["Java", "OOP", "File Handling", "Design Patterns"],
+    link: "https://github.com/IfratulRian/NEXUS---A-Smart-Hospital-Management-System-java-",
+  },
 ];

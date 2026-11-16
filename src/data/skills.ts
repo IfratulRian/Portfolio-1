@@ -11,4 +11,10 @@ export const skillGroups = [
     title: "Development",
     skills: ["React", "Web Development", "Git & GitHub", "REST APIs"],
   },
+  {
+    title: "Data Science & Visualization",
+    description:
+      "Completed a Data Science course with practical experience using these libraries.",
+    skills: ["NumPy", "Pandas", "Matplotlib"],
+  },
 ];

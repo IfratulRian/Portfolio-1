@@ -308,7 +308,7 @@ function App() {
           <div className="hero-stats" aria-label="Key Statistics">
             <div>
               <strong>
-                <AnimatedCounter value={600} suffix="+" />
+                <AnimatedCounter value={650} suffix="+" />
               </strong>
               <span>Codeforces Problems</span>
             </div>
@@ -320,7 +320,7 @@ function App() {
             </div>
             <div>
               <strong>
-                <AnimatedCounter value={230} suffix="+" />
+                <AnimatedCounter value={320} suffix="+" />
               </strong>
               <span>CodeChef Problems</span>
             </div>
@@ -375,6 +375,7 @@ function App() {
             {skillGroups.map((group) => (
               <article className="skill-group" key={group.title}>
                 <h3>{group.title}</h3>
+                {group.description && <p>{group.description}</p>}
                 <div className="skill-list">
                   {group.skills.map((skill) => (
                     <span key={skill}>{skill}</span>
@@ -479,7 +480,11 @@ function App() {
                   {item.countryRank !== undefined && (
                     <div className="wide">
                       <strong>{item.countryRank}</strong>
-                      <span>Current Bangladesh Rank</span>
+                      <span>
+                        {item.name === "CodeChef DSA Contest"
+                          ? "Current Country Rank"
+                          : "Current Bangladesh Rank"}
+                      </span>
                     </div>
                   )}
                 </div>
@@ -512,6 +517,7 @@ function App() {
                   <span className="category">{item.category}</span>
                   <h3>{item.event}</h3>
                   <p>{item.result}</p>
+                  {item.description && <p>{item.description}</p>}
                   {item.image && (
                     <SpotlightTiltCard
                       className="milestone-photo-card"
@@ -640,10 +646,13 @@ function App() {
           <div className="credential-block" id="education">
             <SectionHeading eyebrow="07 / Education" title="Building the foundation." />
             <article className="education-card">
-              <span className="edu-year">Undergraduate Program</span>
+              <span className="edu-year">2025 – 2029 (Expected)</span>
               <h3>B.Sc. in Computer Science & Engineering</h3>
               <p>Daffodil International University (DIU)</p>
-              <span className="edu-focus">Focus: Algorithms, Object-Oriented Programming, and Software Systems</span>
+              <p>CGPA: 3.85 / 4.00</p>
+              <span className="edu-focus">
+                Relevant Coursework: Data Structures & Algorithms, Object-Oriented Programming, Discrete Mathematics, Computer Fundamentals, Database Management Systems, Data Science
+              </span>
             </article>
           </div>
           <div className="credential-block" id="certifications">

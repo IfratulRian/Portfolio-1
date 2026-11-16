@@ -11,8 +11,8 @@ export const codingProfiles: CodingProfile[] = [
   {
     name: "Codeforces",
     mark: "CF",
-    solved: "600+",
-    rating: 973,
+    solved: "650+",
+    rating: 999,
     url: "https://codeforces.com/profile/Ifratul_Rian",
   },
   {
@@ -25,7 +25,7 @@ export const codingProfiles: CodingProfile[] = [
   {
     name: "CodeChef",
     mark: "CC",
-    solved: "230+",
+    solved: "320+",
     rating: 1320,
     countryRank: 1601,
     url: "https://www.codechef.com/users/ifratul_rian",
@@ -33,8 +33,8 @@ export const codingProfiles: CodingProfile[] = [
   {
     name: "CodeChef DSA Contest",
     mark: "DS",
-    rating: 1246,
-    countryRank: 107,
+    rating: 1453,
+    countryRank: 71,
   },
   { name: "beecrowd", mark: "BC", solved: "175+" },
   { name: "AtCoder", mark: "AC", solved: "50+" },

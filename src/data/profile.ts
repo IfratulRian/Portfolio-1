@@ -1,7 +1,9 @@
+import { imageAsset } from "./assets";
+
 export const profile = {
   name: "Md. Ifratul Islam Rian",
   role: "Computer Science Student · Competitive Programmer",
-  avatar: "/Portfolio-1/images/profile-formal.jpg",
+  avatar: imageAsset("profile-formal.jpg"),
   summary:
     "I build thoughtful software, solve algorithmic problems, and contribute to the programming community at DIU.",
   email: "ifrat.rian0007@gmail.com",
