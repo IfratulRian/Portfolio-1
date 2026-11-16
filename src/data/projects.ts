@@ -57,19 +57,6 @@ export const projects = [
   },
   {
     number: "05",
-    title: "Java OOP Learning & Practice",
-    subtitle: "Java · Object-Oriented Programming",
-    description:
-      "A structured learning repository for practicing core Java and object-oriented concepts through hands-on implementations.",
-    highlights: [
-      "Classes, objects, constructors, and encapsulation",
-      "Inheritance, overriding, and polymorphism",
-      "Static members, references, and access modifiers",
-    ],
-    tags: ["Java", "OOP", "Git", "GitHub"],
-  },
-  {
-    number: "06",
     title: "NEXUS – A Smart Hospital Management System",
     subtitle: "Java · Object-Oriented Programming",
     description:
