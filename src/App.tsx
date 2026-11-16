@@ -647,7 +647,9 @@ function App() {
             <SectionHeading eyebrow="07 / Education" title="Building the foundation." />
             <article className="education-card">
               <span className="edu-year">2025 – 2029 (Expected)</span>
-              <h3>B.Sc. in Computer Science & Engineering</h3>
+              <h3>
+                Bachelor of Science in Computer Science & Engineering (B.Sc. in CSE)
+              </h3>
               <p>Daffodil International University (DIU)</p>
               <p>CGPA: 3.85 / 4.00</p>
               <span className="edu-focus">
