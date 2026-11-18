@@ -24,10 +24,10 @@ import { useScrollReveal } from "./hooks/useScrollReveal";
 const navItems = [
   ["Home", "top"],
   ["About", "about"],
+  ["Achievements", "achievements"],
   ["Skills", "skills"],
   ["Projects", "projects"],
   ["Competitive", "competitive"],
-  ["Achievements", "achievements"],
   ["Leadership", "leadership"],
   ["Education", "education"],
   ["Contact", "contact"],
@@ -124,7 +124,7 @@ function App() {
       setShowBackToTop(scrollY > 400);
 
       // Section Scrollspy
-      const sectionIds = ["top", "about", "skills", "projects", "competitive", "achievements", "leadership", "education", "contact"];
+      const sectionIds = ["top", "about", "achievements", "skills", "projects", "competitive", "leadership", "education", "contact"];
       for (let i = sectionIds.length - 1; i >= 0; i--) {
         const id = sectionIds[i];
         const el = document.getElementById(id);
@@ -368,142 +368,10 @@ function App() {
           </div>
         </section>
 
-        {/* 02: Skills */}
-        <section className="section skills" id="skills">
-          <SectionHeading eyebrow="02 / Skills" title="Tools for thinking and making." />
-          <div className="skill-grid" ref={skillsRef}>
-            {skillGroups.map((group) => (
-              <article className="skill-group" key={group.title}>
-                <h3>{group.title}</h3>
-                {group.description && <p>{group.description}</p>}
-                <div className="skill-list">
-                  {group.skills.map((skill) => (
-                    <span key={skill}>{skill}</span>
-                  ))}
-                </div>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        {/* 03: Featured Projects */}
-        <section className="section projects" id="projects">
-          <SectionHeading
-            eyebrow="03 / Featured Projects"
-            title="Selected work & implementations."
-            intro="A showcase of how I apply computer science fundamentals across algorithms, software architecture, and modular systems."
-          />
-          {/* Interactive Domain Filter Tabs */}
-          <div className="project-filter-bar" role="tablist" aria-label="Filter projects by domain">
-            {projectCategories.map((cat) => (
-              <button
-                key={cat}
-                type="button"
-                role="tab"
-                aria-selected={selectedCategory === cat}
-                className={`filter-tab-btn ${selectedCategory === cat ? "active" : ""}`}
-                onClick={() => setSelectedCategory(cat)}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
-          <div className="project-list" ref={projectsRef}>
-            {filteredProjects.map((project) => (
-              <SpotlightTiltCard
-                className="project-card"
-                key={project.title}
-                maxTilt={3.5}
-                scale={1.015}
-              >
-                <div className="project-topline">
-                  <span className="project-number">{project.number}</span>
-                  <span className="project-subtitle">{project.subtitle}</span>
-                </div>
-                <h3>{project.title}</h3>
-                <p>{project.description}</p>
-                <ul className="project-highlights">
-                  {project.highlights.map((highlight) => (
-                    <li key={highlight}>{highlight}</li>
-                  ))}
-                </ul>
-                <div className="tags">
-                  {project.tags.map((tag) => (
-                    <span key={tag}>{tag}</span>
-                  ))}
-                </div>
-                {project.link && (
-                  <a className="project-link" href={project.link} target="_blank" rel="noreferrer">
-                    View Repository on GitHub <Arrow diagonal />
-                  </a>
-                )}
-              </SpotlightTiltCard>
-            ))}
-          </div>
-        </section>
-
-        {/* 04: Competitive Programming */}
-        <section className="section competitive" id="competitive">
-          <SectionHeading
-            eyebrow="04 / Competitive Programming"
-            title="Practice, persistence, progress."
-            intro="Algorithms are a daily discipline. These numbers reflect verified solved problem counts and current platform statistics—not percentages."
-          />
-          <div className="profile-grid" ref={competitiveRef}>
-            {codingProfiles.map((item, index) => (
-              <SpotlightTiltCard
-                className={`profile-card ${index < 3 ? "featured" : ""}`}
-                key={item.name}
-                maxTilt={4}
-                scale={1.02}
-              >
-                <div className="profile-top">
-                  <div className="platform-mark" aria-hidden="true">
-                    <PlatformIcon name={item.name} />
-                  </div>
-                  <span className="platform-index">0{index + 1}</span>
-                </div>
-                <h3>{item.name}</h3>
-                <div className="metrics">
-                  {item.solved && (
-                    <div>
-                      <strong>{item.solved}</strong>
-                      <span>Problems solved</span>
-                    </div>
-                  )}
-                  {item.rating !== undefined && (
-                    <div>
-                      <strong>{item.rating}</strong>
-                      <span>Rating</span>
-                    </div>
-                  )}
-                  {item.countryRank !== undefined && (
-                    <div className="wide">
-                      <strong>{item.countryRank}</strong>
-                      <span>
-                        {item.name === "CodeChef DSA Contest"
-                          ? "Current Country Rank"
-                          : "Current Bangladesh Rank"}
-                      </span>
-                    </div>
-                  )}
-                </div>
-                {item.url ? (
-                  <a className="card-link" href={item.url} target="_blank" rel="noreferrer">
-                    View Profile <Arrow diagonal />
-                  </a>
-                ) : (
-                  <span className="card-note">Verified platform record</span>
-                )}
-              </SpotlightTiltCard>
-            ))}
-          </div>
-        </section>
-
-        {/* 05: Achievements */}
+        {/* 02: Achievements */}
         <section className="section achievements" id="achievements">
           <SectionHeading
-            eyebrow="05 / Achievements"
+            eyebrow="02 / Achievements"
             title="Milestones along the way."
             intro="Contest results, hackathons, and contributions—presented factually as earned with photo verification."
           />
@@ -557,6 +425,138 @@ function App() {
                   )}
                 </div>
               </article>
+            ))}
+          </div>
+        </section>
+
+        {/* 03: Skills */}
+        <section className="section skills" id="skills">
+          <SectionHeading eyebrow="03 / Skills" title="Tools for thinking and making." />
+          <div className="skill-grid" ref={skillsRef}>
+            {skillGroups.map((group) => (
+              <article className="skill-group" key={group.title}>
+                <h3>{group.title}</h3>
+                {group.description && <p>{group.description}</p>}
+                <div className="skill-list">
+                  {group.skills.map((skill) => (
+                    <span key={skill}>{skill}</span>
+                  ))}
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        {/* 04: Featured Projects */}
+        <section className="section projects" id="projects">
+          <SectionHeading
+            eyebrow="04 / Featured Projects"
+            title="Selected work & implementations."
+            intro="A showcase of how I apply computer science fundamentals across algorithms, software architecture, and modular systems."
+          />
+          {/* Interactive Domain Filter Tabs */}
+          <div className="project-filter-bar" role="tablist" aria-label="Filter projects by domain">
+            {projectCategories.map((cat) => (
+              <button
+                key={cat}
+                type="button"
+                role="tab"
+                aria-selected={selectedCategory === cat}
+                className={`filter-tab-btn ${selectedCategory === cat ? "active" : ""}`}
+                onClick={() => setSelectedCategory(cat)}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+          <div className="project-list" ref={projectsRef}>
+            {filteredProjects.map((project) => (
+              <SpotlightTiltCard
+                className="project-card"
+                key={project.title}
+                maxTilt={3.5}
+                scale={1.015}
+              >
+                <div className="project-topline">
+                  <span className="project-number">{project.number}</span>
+                  <span className="project-subtitle">{project.subtitle}</span>
+                </div>
+                <h3>{project.title}</h3>
+                <p>{project.description}</p>
+                <ul className="project-highlights">
+                  {project.highlights.map((highlight) => (
+                    <li key={highlight}>{highlight}</li>
+                  ))}
+                </ul>
+                <div className="tags">
+                  {project.tags.map((tag) => (
+                    <span key={tag}>{tag}</span>
+                  ))}
+                </div>
+                {project.link && (
+                  <a className="project-link" href={project.link} target="_blank" rel="noreferrer">
+                    View Repository on GitHub <Arrow diagonal />
+                  </a>
+                )}
+              </SpotlightTiltCard>
+            ))}
+          </div>
+        </section>
+
+        {/* 05: Competitive Programming */}
+        <section className="section competitive" id="competitive">
+          <SectionHeading
+            eyebrow="05 / Competitive Programming"
+            title="Practice, persistence, progress."
+            intro="Algorithms are a daily discipline. These numbers reflect verified solved problem counts and current platform statistics—not percentages."
+          />
+          <div className="profile-grid" ref={competitiveRef}>
+            {codingProfiles.map((item, index) => (
+              <SpotlightTiltCard
+                className={`profile-card ${index < 3 ? "featured" : ""}`}
+                key={item.name}
+                maxTilt={4}
+                scale={1.02}
+              >
+                <div className="profile-top">
+                  <div className="platform-mark" aria-hidden="true">
+                    <PlatformIcon name={item.name} />
+                  </div>
+                  <span className="platform-index">0{index + 1}</span>
+                </div>
+                <h3>{item.name}</h3>
+                <div className="metrics">
+                  {item.solved && (
+                    <div>
+                      <strong>{item.solved}</strong>
+                      <span>Problems solved</span>
+                    </div>
+                  )}
+                  {item.rating !== undefined && (
+                    <div>
+                      <strong>{item.rating}</strong>
+                      <span>Rating</span>
+                    </div>
+                  )}
+                  {item.countryRank !== undefined && (
+                    <div className="wide">
+                      <strong>{item.countryRank}</strong>
+                      <span>
+                        {item.name === "CodeChef DSA Contest"
+                          ? "Current Country Rank"
+                          : "Current Bangladesh Rank"}
+                      </span>
+                    </div>
+                  )}
+                </div>
+                {item.url ? (
+                  <a className="card-link" href={item.url} target="_blank" rel="noreferrer">
+                    View Profile <Arrow diagonal />
+                  </a>
+                ) : (
+                  <span className="card-note">Verified platform record</span>
+                )}
+              </SpotlightTiltCard>
             ))}
           </div>
         </section>
