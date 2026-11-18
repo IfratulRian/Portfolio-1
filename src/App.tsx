@@ -219,9 +219,6 @@ function App() {
 
       {/* Navigation */}
       <nav className="navbar" aria-label="Primary navigation">
-        <a className="wordmark" href="#top" aria-label="Ifratul Islam Rian, home">
-          IR<span>.</span>
-        </a>
         <div className={`nav-links ${menuOpen ? "open" : ""}`}>
           {navItems.map(([label, id]) => (
             <a
