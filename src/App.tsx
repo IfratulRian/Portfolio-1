@@ -296,8 +296,12 @@ function App() {
                   Explore my work <Arrow />
                 </a>
               </MagneticElement>
-              <a className="text-link" href="#competitive">
-                Competitive journey <Arrow diagonal />
+              <a
+                className="text-link"
+                href={`${import.meta.env.BASE_URL}resume.pdf`}
+                download="Md_Ifratul_Islam_Rian_CV_General.pdf"
+              >
+                Download my resume <Arrow diagonal />
               </a>
             </div>
           </div>
