@@ -1,7 +1,7 @@
 export const skillGroups = [
   {
     title: "Languages",
-    skills: ["C++", "Java", "JavaScript", "Python", "SQL"],
+    skills: ["C", "C++", "Java", "JavaScript", "Python", "SQL"],
   },
   {
     title: "Core Computer Science",
