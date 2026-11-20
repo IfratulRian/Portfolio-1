@@ -1,7 +1,10 @@
+import { imageAsset } from "./assets";
+
 export const projects = [
   {
     number: "01",
     title: "Inventory Management System",
+    image: imageAsset("inventory.jpg"),
     subtitle: "C · Data Structures & Algorithms",
     description:
       "A console-based inventory system that combines multiple data structures to manage products efficiently and support reversible operations.",
@@ -17,6 +20,7 @@ export const projects = [
   {
     number: "02",
     title: "Smart Route Planner",
+    image: imageAsset("route-planner-demo.webp"),
     subtitle: "C++ · Graph Algorithms",
     description:
       "A route-planning application for finding and analyzing paths between connected locations using fundamental graph algorithms.",
@@ -31,6 +35,7 @@ export const projects = [
   {
     number: "03",
     title: "Student Portal Management System",
+    image: imageAsset("student-portal.webp"),
     subtitle: "Java · Object-Oriented Programming",
     description:
       "A collaborative, modular student management system for handling students, teachers, clubs, and university information.",
@@ -45,6 +50,7 @@ export const projects = [
   {
     number: "04",
     title: "Campus Event & Club Management System",
+    image: imageAsset("campus-event-management.jpg"),
     subtitle: "Java · OOP",
     description:
       "A console-based university application for managing students, clubs, events, registrations, and certificates.",
@@ -58,6 +64,7 @@ export const projects = [
   {
     number: "05",
     title: "NEXUS – A Smart Hospital Management System",
+    image: imageAsset("hospital-management.jpg"),
     subtitle: "Java · Object-Oriented Programming",
     description:
       "Developed a modular Java-based hospital management system to streamline healthcare operations, including patient and doctor management, appointment scheduling, medical records, pharmacy, billing, and insurance management. Implemented OOP principles, layered architecture, file-based data persistence, and design patterns.",

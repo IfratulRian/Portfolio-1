@@ -478,6 +478,12 @@ function App() {
                 maxTilt={3.5}
                 scale={1.015}
               >
+                <img
+                  className="project-image"
+                  src={project.image}
+                  alt={`${project.title} project preview`}
+                  loading="lazy"
+                />
                 <div className="project-topline">
                   <span className="project-number">{project.number}</span>
                   <span className="project-subtitle">{project.subtitle}</span>
